@@ -1,0 +1,42 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  GO_VERSION: '1.21.5' # Replace with your Go version
+
+before_script:
+  - apt-get update -qy
+  - apt-get install -y wget
+  - wget https://dl.google.com/go/gogo$GO_VERSION.linux-amd64.tar.gz
+  - tar -C /usr/local -xzf go$GO go$GO go$GO go$GO go$GO go$GO go$GO go$GO go$GO go$GO go$GO go$!
+
+build:
+  stage: build
+  image: golang:$GO go$!
+  script:
+    - go build -v ./...
+  artifacts:
+    paths:
+      - project_name
+
+test:
+  stage: test
+  image: golang:$GO go$!
+  script:
+    - go test -v ./...
+
+deploy:
+  stage: deploy
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD registry.domain.com
+  script:
+    - docker build -t project_name-go .
+    - docker tag project_name-go:latest "registry.domain.com/project_name/project_name-go:$CI_COMMIT_TAG"
+    - docker push "registry.domain.com/project_name/project_name-go:$CI_COMMIT_TAG"
+  only:
+    - tags

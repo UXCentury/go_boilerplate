@@ -1,0 +1,45 @@
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+*.dylib
+
+# Folders
+/bin/
+/vendor/
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Binaries and other executable files
+/project_name
+/build/
+
+# IDE and Editor folders
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+
+# macOS specific files
+.DS_Store
+
+# Testing specific particles
+test/testdata
+*.test
+*.test.md
+
+# Logging
+*.log
+
+# Environment files
+.env
+.env.local
