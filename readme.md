@@ -24,6 +24,6 @@ For local docker build use Dockerfile
 #### Database - Postgres
 
 #### Utils
-- Zap logger
-- Viper config
+- [Zap](https://github.com/uber-go/zap) logger
+- [Viper](https://github.com/spf13/viper) config
 - Retry (custom retry logic)
