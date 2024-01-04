@@ -4,17 +4,18 @@ stages:
   - deploy
 
 variables:
-  GO_VERSION: '1.21.5' # Replace with your Go version
+  GO_VERSION: '1.18'  # Make sure this version exists
 
 before_script:
   - apt-get update -qy
   - apt-get install -y wget
-  - wget https://dl.google.com/go/gogo$GO_VERSION.linux-amd64.tar.gz
-  - tar -C /usr/local -xzf go$GO go$GO go$GO go$GO go$GO go$GO go$GO go$GO go$GO go$GO go$GO go$!
+  - wget https://dl.google.com/go/go$GO_VERSION.linux-amd64.tar.gz
+  - tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz
+  - export PATH=$PATH:/usr/local/go/bin
 
 build:
   stage: build
-  image: golang:$GO go$!
+  image: golang:$GO_VERSION
   script:
     - go build -v ./...
   artifacts:
@@ -23,7 +24,7 @@ build:
 
 test:
   stage: test
-  image: golang:$GO go$!
+  image: golang:$GO_VERSION
   script:
     - go test -v ./...
 
